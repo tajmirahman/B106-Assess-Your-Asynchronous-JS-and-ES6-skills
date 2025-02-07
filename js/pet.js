@@ -13,7 +13,7 @@ const displayCategory = (categories) => {
     categories.forEach((item) => {
         const button = document.createElement('div');
         button.innerHTML = `
-        <button id="btn-'${item.category}'" onclick="showButton('${item.category}')" class="btn btn-category px-10 py-3">${item.category}</button>
+        <button id="btn-'${item.category}'" onclick="showButton('${item.category}')" class="btn btn-category px-10 py-3 w-20">${item.category}</button>
         
         `;
         categoryContainer.append(button);
