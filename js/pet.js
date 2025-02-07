@@ -21,9 +21,9 @@ const displayCategory = (categories) => {
 }
 
 // Remove active button
-const removeActiveButton=()=>{
-    const removeActive=document.getElementsByClassName('btn-category');
-    for(const btn of removeActive){
+const removeActiveButton = () => {
+    const removeActive = document.getElementsByClassName('btn-category');
+    for (const btn of removeActive) {
         btn.classList.remove('active');
     }
 
@@ -32,42 +32,42 @@ const removeActiveButton=()=>{
 // When click a button then show his on property
 const showButton = (category) => {
     fetch(`https://openapi.programming-hero.com/api/peddy/category/${category}`)
-    .then(res=>res.json())
-    .then(data=>{
+        .then(res => res.json())
+        .then(data => {
 
-        // Remove bUtton
-        removeActiveButton();
+            // Remove bUtton
+            removeActiveButton();
 
-        // active all button
-        const activeButton=document.getElementById(`btn-'${category}'`);
-        activeButton.classList.add('active');
-        
-        displayAnimal(data.data)
-    })
-    .catch(err=>console.log(err))
-  
+            // active all button
+            const activeButton = document.getElementById(`btn-'${category}'`);
+            activeButton.classList.add('active');
+
+            displayAnimal(data.data)
+        })
+        .catch(err => console.log(err))
+
 }
 
 // LoadDetails
-const loadDetails=(petId)=>{
- 
-    fetch(`https://openapi.programming-hero.com/api/peddy/pet/${petId}`)
-        .then(res=>res.json())
-        .then(data=>displayDetails(data.petData))
-        .catch(err=>console.log(err))
+const loadDetails = (petId) => {
 
-    
+    fetch(`https://openapi.programming-hero.com/api/peddy/pet/${petId}`)
+        .then(res => res.json())
+        .then(data => displayDetails(data.petData))
+        .catch(err => console.log(err))
+
+
 }
 
 // DisplayDetails animals
 
-const displayDetails=(petData)=>{
+const displayDetails = (petData) => {
     console.log(petData);
 
     document.getElementById('my_modal_1').showModal();
 
-    const modalContainer=document.getElementById('modal-container');
-    modalContainer.innerHTML=`
+    const modalContainer = document.getElementById('modal-container');
+    modalContainer.innerHTML = `
     <div class="w-full">
      <img class="h-30 w-30" src="${petData.image}" />
 
@@ -100,30 +100,32 @@ const displayDetails=(petData)=>{
 
     `;
 
-    
-     
-   
+
+
+
 }
 
 //Load Data for display image in an another div
-const showImage=(petId)=>{
+const showImage = (petId) => {
     // alert('hi');
     fetch(`https://openapi.programming-hero.com/api/peddy/pet/${petId}`)
-        .then(res=>res.json())
-        .then(data=>anotherDivImage(data.petData))
-        .catch(err=>console.log(err))
+        .then(res => res.json())
+        .then(data => anotherDivImage(data.petData))
+        .catch(err => console.log(err))
 }
 
 // display image in an another div 
-const anotherDivImage=(petData)=>{
+const anotherDivImage = (petData) => {
     // console.log(petData);
-    const showImage=document.getElementById('show-image');
-    const div=document.createElement('div');
-    div.innerHTML= `
+    const showImage = document.getElementById('show-image');
+    const div = document.createElement('div');
+    div.innerHTML = `
     <img class="h-28 w-28" src="${petData.image}" />
     `;
     showImage.append(div);
 }
+
+
 
 // Load All Animal data
 const loadAllAnimalData = () => {
@@ -133,43 +135,33 @@ const loadAllAnimalData = () => {
         .catch(err => console.log(err))
 }
 
-// Demo object
-// {
-//     "petId": 15,
-//     "breed": "Holland Lop",
-//     "category": "Rabbit",
-//     "date_of_birth": "2023-07-15",
-//     "price": 200,
-//     "image": "https://i.ibb.co.com/RQ6smFK/pet-15.jpg",
-//     "gender": "Male",
-//     "pet_details": "This charming male Holland Lop rabbit, born on July 15, 2023, is playful and enjoys hopping around. Priced at $200, he makes a wonderful pet for children. He is not vaccinated.",
-//     "vaccinated_status": "Not",
-//     "pet_name": "Binky"
-//   }
-
-// Display all animal 
+// Display all animals data
 
 const displayAnimal = (pets) => {
     const animalContainer = document.getElementById('all-container');
 
-    animalContainer.innerHTML= '';
+    animalContainer.innerHTML = '';
 
-    if(pets.length === 0){
+    if (pets.length === 0) {
         animalContainer.classList.remove('grid');
-        animalContainer.innerHTML=`
+        animalContainer.innerHTML = `
         <div class="flex justify-center items-center">
         <img src="./images/error.webp" />
         <h2 class="text-red-400 font-bold">No Information Available</h2>
         </div>
         `;
-        const hiddenDiv=document.getElementById('hidden-div');
+        const hiddenDiv = document.getElementById('hidden-div');
         hiddenDiv.classList.add('hidden');
-    }else{
-        const hiddenDiv=document.getElementById('hidden-div');
+    } else {
+        const hiddenDiv = document.getElementById('hidden-div');
         hiddenDiv.classList.remove('hidden');
         animalContainer.classList.add('grid');
-        
+
     }
+
+
+
+
 
     pets.forEach((pet) => {
         // console.log(pet);
@@ -212,6 +204,10 @@ const displayAnimal = (pets) => {
         </div>
         `;
         animalContainer.append(card);
+
+        
+
+        
 
     });
 }
