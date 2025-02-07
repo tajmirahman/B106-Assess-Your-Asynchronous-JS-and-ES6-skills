@@ -13,10 +13,116 @@ const displayCategory = (categories) => {
     categories.forEach((item) => {
         const button = document.createElement('div');
         button.innerHTML = `
-        <button class="btn px-10 py-3">${item.category}</button>
+        <button id="btn-'${item.category}'" onclick="showButton('${item.category}')" class="btn btn-category px-10 py-3">${item.category}</button>
+        
         `;
         categoryContainer.append(button);
     });
+}
+
+// Remove active button
+const removeActiveButton=()=>{
+    const removeActive=document.getElementsByClassName('btn-category');
+    for(const btn of removeActive){
+        btn.classList.remove('active');
+    }
+
+}
+
+// When click a button then show his on property
+const showButton = (category) => {
+    fetch(`https://openapi.programming-hero.com/api/peddy/category/${category}`)
+    .then(res=>res.json())
+    .then(data=>{
+
+        // Remove bUtton
+        removeActiveButton();
+
+        // active all button
+        const activeButton=document.getElementById(`btn-'${category}'`);
+        activeButton.classList.add('active');
+        
+        displayAnimal(data.data)
+    })
+    .catch(err=>console.log(err))
+  
+}
+
+// LoadDetails
+const loadDetails=(petId)=>{
+ 
+    fetch(`https://openapi.programming-hero.com/api/peddy/pet/${petId}`)
+        .then(res=>res.json())
+        .then(data=>displayDetails(data.petData))
+        .catch(err=>console.log(err))
+
+    
+}
+
+// DisplayDetails animals
+
+const displayDetails=(petData)=>{
+    console.log(petData);
+
+    document.getElementById('my_modal_1').showModal();
+
+    const modalContainer=document.getElementById('modal-container');
+    modalContainer.innerHTML=`
+    <div class="w-full">
+     <img class="h-30 w-30" src="${petData.image}" />
+
+     <h2 class="mt-2 mb-2 text-2xl font-bold" class="card-title">${petData.pet_name}</h2>
+     
+     <div class="flex gap-1">
+        <a><i class="fa-solid fa-vector-square"></i> Breed:</a>
+        <p>${petData.breed}</p>
+    </div>
+    <div class="flex gap-1">
+        <a><i class="fa-regular fa-calendar"></i> Birth :</a>
+        <p>${petData.date_of_birth}</p>
+    </div>
+    <div class="flex gap-1">
+        <a><i class="fa-solid fa-mars-stroke-up"></i> Gender :</a>
+        <p>${petData.gender}</p>
+    </div>
+    <div class="flex gap-1">
+        <a><i class="fa-solid fa-dollar-sign"></i> Price :</a>
+        <p>${petData.price}</p>
+    </div>
+        
+    <div class="mt-2">
+    <h1 class="text-xl font-bold"> Details Information</h1>
+    <p>${petData.pet_details}</p>
+    </div>
+
+    </div>
+
+
+    `;
+
+    
+     
+   
+}
+
+//Load Data for display image in an another div
+const showImage=(petId)=>{
+    // alert('hi');
+    fetch(`https://openapi.programming-hero.com/api/peddy/pet/${petId}`)
+        .then(res=>res.json())
+        .then(data=>anotherDivImage(data.petData))
+        .catch(err=>console.log(err))
+}
+
+// display image in an another div 
+const anotherDivImage=(petData)=>{
+    // console.log(petData);
+    const showImage=document.getElementById('show-image');
+    const div=document.createElement('div');
+    div.innerHTML= `
+    <img class="h-28 w-28" src="${petData.image}" />
+    `;
+    showImage.append(div);
 }
 
 // Load All Animal data
@@ -45,8 +151,28 @@ const loadAllAnimalData = () => {
 
 const displayAnimal = (pets) => {
     const animalContainer = document.getElementById('all-container');
+
+    animalContainer.innerHTML= '';
+
+    if(pets.length === 0){
+        animalContainer.classList.remove('grid');
+        animalContainer.innerHTML=`
+        <div class="flex justify-center items-center">
+        <img src="./images/error.webp" />
+        <h2 class="text-red-400 font-bold">No Information Available</h2>
+        </div>
+        `;
+        const hiddenDiv=document.getElementById('hidden-div');
+        hiddenDiv.classList.add('hidden');
+    }else{
+        const hiddenDiv=document.getElementById('hidden-div');
+        hiddenDiv.classList.remove('hidden');
+        animalContainer.classList.add('grid');
+        
+    }
+
     pets.forEach((pet) => {
-        console.log(pet);
+        // console.log(pet);
         const card = document.createElement('div');
         card.innerHTML = `
         <div class="card card-compact border-2 ">
@@ -75,9 +201,12 @@ const displayAnimal = (pets) => {
 
 
                 <div class="card-actions flex justify-between">
-                <button class="border-2 p-2 "><i class="fa-solid fa-thumbs-up"></i></button>
+
+                <button onclick="showImage(${pet.petId})" class="border-2 p-2 "><i class="fa-solid fa-thumbs-up"></i></button>
+
                 <button class="border-2 px-1 py-2 text-[#0E7A81]">Adopt</button>
-                <button class="border-2 px-1 py-2 text-[#0E7A81]">Details</button>
+
+                <button onclick="loadDetails(${pet.petId})" class="border-2 px-1 py-2 text-[#0E7A81]">Details</button>
                 </div>
             </div>
         </div>

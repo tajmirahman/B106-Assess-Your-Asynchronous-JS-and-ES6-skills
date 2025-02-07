@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pet Adoption Platform</title>
-    <link rel="stylesheet" href="style.css">
     <!-- daisy cdn -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.23/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- fontawsome cdn -->
     <script src="https://kit.fontawesome.com/2d5c33a837.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
 
 
 </head>
@@ -89,13 +89,23 @@
 
         </div>
 
-        <div id="all-container" class="mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div class="flex gap-2">
+            <div class="border-2 p-2">
+                <div id="all-container" class="mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
 
+
+                </div>
+            </div>
+            <div id="hidden-div" class=" w-2/6 border-2">
+                <div id="show-image" class="flex gap-1">
+
+                </div>
+            </div>
         </div>
 
     </main>
     <!-- Main Section ends here -->
-   
+
 
     <!-- footer section start here -->
     <footer class="footer bg-neutral text-neutral-content p-10">
@@ -115,8 +125,9 @@
                 <a class="link link-hover"><i class="fa-brands fa-square-instagram text-4xl "></i></a>
 
             </div>
+            <p>All Reserved By Tajmilur</p>
         </nav>
-        <nav >
+        <nav>
             <h6 class="footer-title">Useful Links</h6>
             <a class="link link-hover">Home</a>
             <a class="link link-hover">About</a>
@@ -131,6 +142,28 @@
         </nav>
     </footer>
     <!-- footer section ends here -->
+
+
+    <!-- modal start here -->
+
+    <!-- Open the modal using ID.showModal() method -->
+    <button class="btn hidden" onclick="my_modal_1.showModal()">open modal</button>
+    <dialog id="my_modal_1" class="modal">
+        <div  class="modal-box">
+            <div id="modal-container">
+
+            </div>
+            
+            <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- modal ends here -->
 
 
 
