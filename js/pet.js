@@ -62,7 +62,7 @@ const loadDetails = (petId) => {
 // DisplayDetails animals
 
 const displayDetails = (petData) => {
-    console.log(petData);
+    // console.log(petData);
 
     document.getElementById('my_modal_1').showModal();
 
@@ -79,7 +79,9 @@ const displayDetails = (petData) => {
     </div>
     <div class="flex gap-1">
         <a><i class="fa-regular fa-calendar"></i> Birth :</a>
+        
         <p>${petData.date_of_birth}</p>
+
     </div>
     <div class="flex gap-1">
         <a><i class="fa-solid fa-mars-stroke-up"></i> Gender :</a>
@@ -176,19 +178,22 @@ const displayAnimal = (pets) => {
 
                 <div class="flex gap-1">
                 <a><i class="fa-solid fa-vector-square"></i> Breed:</a>
-                <p>${pet.breed}</p>
+                <p>${pet.breed ? pet.breed : 'No'}</p>
                 </div>
                 <div class="flex gap-1">
                 <a><i class="fa-regular fa-calendar"></i> Birth :</a>
-                <p>${pet.date_of_birth}</p>
+                <p>${pet.date_of_birth ? pet.date_of_birth : 'No'}</p>
+
                 </div>
                 <div class="flex gap-1">
                 <a><i class="fa-solid fa-mars-stroke-up"></i> Gender :</a>
-                <p>${pet.gender}</p>
+                <p>${pet.gender ? pet.gender : 'Finding'}</p>
                 </div>
                 <div class="flex gap-1">
                 <a><i class="fa-solid fa-dollar-sign"></i> Price :</a>
-                <p>${pet.price}</p>
+               
+                <p>${pet.price ? pet.price : 'No Price Set'}</p>
+
                 </div>
 
 
@@ -196,7 +201,7 @@ const displayAnimal = (pets) => {
 
                 <button onclick="showImage(${pet.petId})" class="border-2 p-2 "><i class="fa-solid fa-thumbs-up"></i></button>
 
-                <button class="border-2 px-1 py-2 text-[#0E7A81]">Adopt</button>
+                <button onClick="countData(${pet.petId})" class="border-2 px-1 py-2 text-[#0E7A81]">Adopt</button>
 
                 <button onclick="loadDetails(${pet.petId})" class="border-2 px-1 py-2 text-[#0E7A81]">Details</button>
                 </div>
@@ -205,12 +210,17 @@ const displayAnimal = (pets) => {
         `;
         animalContainer.append(card);
 
-        
-
-        
 
     });
 }
+
+
+// Count down data
+
+const countData=()=>{
+    alert('hi');
+}
+
 
 
 
